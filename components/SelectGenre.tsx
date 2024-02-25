@@ -141,7 +141,7 @@ export function CheckboxReactHookFormMultiple() {
                     return (
                       <FormItem
                         key={item.id}
-                        className="flex flex-row items-start space-x-3 space-y-0"
+                        className="flex flex-row items-start space-x-3 space-y-0 text-gray-800 "
                       >
                         <FormControl>
                           <Checkbox
