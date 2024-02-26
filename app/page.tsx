@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CheckboxReactHookFormMultiple } from "@/components/SelectGenre";
+import { SelectGenre } from "@/components/SelectGenre";
 import Suggestion from "@/components/Suggestion";
 import { SearchIcon } from "lucide-react";
 import { PlusIcon } from "lucide-react";
@@ -72,7 +72,7 @@ export default function Home() {
         </h3>
         <p className="text-gray-500">(add at least 3)</p>
 
-        <div className="flex space-x-3 mt-10">
+        <div className={`flex space-x-3 mt-10 ${selectedBooks.length > 0 && 'p-6 bg-[#f3f3ee] rounded-md'}`}>
           {selectedBooks.map((book, index) => (
             <BookImage
               key={index}
@@ -82,6 +82,8 @@ export default function Home() {
             />
           ))}
         </div>
+
+
         <div
           className={`w-[80%] lg:max-w-2xl  mt-10 px-6 py-3 border border-gray-400 rounded-3xl ${
             searchResults.length > 0 && displaySearchResults
@@ -138,8 +140,8 @@ export default function Home() {
           2. Select your favorite genres
         </h3>
         <p className="text-gray-500">(Select at least 1)</p>
-        <div className="w-[80%] border border-gray-400 rounded-2xl my-10">
-          <CheckboxReactHookFormMultiple />
+        <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:max-w-2xl border border-gray-400 rounded-2xl my-10">
+        <SelectGenre />
         </div>
       </div>
 
