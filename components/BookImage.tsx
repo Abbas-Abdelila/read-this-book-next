@@ -1,15 +1,27 @@
+import React from "react";
 import Image from "next/image";
+import { MinusCircleIcon } from "lucide-react";
 
-const BookImage = ({ url, title }: { url: string; title: string }) => {
+interface BookImageProps {
+  url: string;
+  title: string;
+  onRemove: () => void; // Add this line
+}
+
+const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="relative w-[115px] h-[160px]">
+      <div className="relative w-[81px] h-[100px] sm:w-[102px] sm:h-[120px]  lg:w-[115px] lg:h-[160px] ">
         <Image
           src={url}
           fill
           alt="Read This Next"
+          sizes="(max-width:   640px)   30vw, (max-width:   768px)   40vw,   115px"
           className="object-fit rounded-xl"
         />
+        <button onClick={onRemove} className="absolute top-0 right-0">
+          <MinusCircleIcon />
+        </button>
       </div>
       <p className="text-sm font-thin text-gray-600 my-2 p-1">{title}</p>
     </div>
