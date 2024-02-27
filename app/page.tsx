@@ -9,11 +9,12 @@ import Image from "next/image";
 import axios from "axios";
 import { useDebounce } from "use-debounce";
 import BookImage from "@/components/BookImage";
-import { BookSearchResult } from "@/types/types";
+import { BookSearchResult, BookSuggestion } from "@/types/types";
 import { Book } from "@/types/types";
 
 export default function Home() {
   const [searchResults, setSearchResults] = useState<BookSearchResult[]>([]);
+  const [suggestionData, setSuggestionData] = useState<BookSuggestion>();
   const [text, setText] = useState("");
   const [displaySearchResults, setDisplaySearchResults] = useState(false);
   const [selectedBooks, setSelectedBooks] = useState<BookSearchResult[]>([]);
@@ -49,6 +50,10 @@ export default function Home() {
   const handleBookRemoval = (index: number) => {
     setSelectedBooks(selectedBooks.filter((_, i) => i !== index));
   };
+
+  const handleSuggestionData = (data : BookSuggestion) => {
+    setSuggestionData(data);
+  }
 
   return (
     <main className="w-[90%] mx-auto my-10 py-10 bg-white rounded-xl">
@@ -141,11 +146,11 @@ export default function Home() {
         </h3>
         <p className="text-gray-500">(Select at least 1)</p>
         <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:max-w-2xl border border-gray-400 rounded-2xl my-10">
-        <SelectGenre />
+        <SelectGenre selectedBooks={selectedBooks} onSuggestionData={handleSuggestionData}/>
         </div>
       </div>
 
-      <Suggestion />
+      {suggestionData && <Suggestion data={suggestionData}/>}
     </main>
   );
 }
