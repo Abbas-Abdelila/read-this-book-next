@@ -14,6 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { BookSearchResult } from "@/types/types"
+import axios from "axios"
+
 
 const items = [
   {
@@ -104,23 +107,19 @@ const FormSchema = z.object({
   }),
 })
 
-export function CheckboxReactHookFormMultiple() {
+export function SelectGenre( {selectedBooks} : { selectedBooks: BookSearchResult[]}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      items: ["recents", "home"],
+      items: [],
     },
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // })
+    axios.post('/api/suggest', {
+      books: selectedBooks,
+      genres: data.items
+    }) 
   }
 
   return (
@@ -130,7 +129,7 @@ export function CheckboxReactHookFormMultiple() {
           control={form.control}
           name="items"
           render={() => (
-            <FormItem className="grid gap-y-[6px] gap-x-3  p-10 grid-cols-2 lg:grid-cols-3 max-w-[1000px] mx-auto  items-center">
+            <FormItem className="grid gap-y-[6px] gap-x-3  p-10 grid-cols-2 lg:grid-cols-3 max-w-[768px] mx-auto  items-center">
              
               {items.map((item) => (
                 <FormField
