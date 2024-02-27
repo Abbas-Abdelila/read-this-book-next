@@ -34,3 +34,8 @@ export interface Book {
   num_found: number;
   docs: BookSearchResult[];
 }
+
+export interface BookSuggestion {
+  title: string,
+  description: string,
+}
