@@ -107,7 +107,7 @@ const FormSchema = z.object({
   }),
 })
 
-export function SelectGenre( {selectedBooks} : { selectedBooks: BookSearchResult[]}) {
+export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBooks: BookSearchResult[], onSuggestionData: (data: any) => void}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -119,8 +119,13 @@ export function SelectGenre( {selectedBooks} : { selectedBooks: BookSearchResult
     axios.post('/api/suggest', {
       books: selectedBooks,
       genres: data.items
-    }) 
-  }
+    }).then((response) => {
+      const { title, description } = response.data;
+      onSuggestionData({ title, description }); 
+  }).catch((error) => {
+    console.error(error);
+  });
+}
 
   return (
     <Form {...form}>
