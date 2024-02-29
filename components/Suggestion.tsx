@@ -11,7 +11,7 @@ const Suggestion = ({ data } : { data: BookSuggestion }) => {
       <div className="flex space-x-4 items-start p-6 bg-[#f3f3ee] rounded-md">
         <div className="relative w-[81px] h-[100px] sm:w-[102px] sm:h-[120px]  lg:w-[115px] lg:h-[160px] flex-shrink-0 bg-[#FF6600] rounded-xl">
           <Image
-            src={data.image}
+            src={data.image ?? "/book_placeholder.jpg"}
             fill
             alt="Read This Next"
             sizes="(max-width:   640px)   30vw, (max-width:   768px)   40vw,   115px"
