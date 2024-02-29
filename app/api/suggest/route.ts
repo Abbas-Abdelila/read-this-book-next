@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import Instructor from "@instructor-ai/instructor";
 import OpenAI from "openai";
 import { z } from "zod";
+import axios from "axios";
+import { Book, BookSearchResult } from "@/types/types";
+import leven from "leven";
 
 const SuggestSchema = z.object({
   books: z.array(
@@ -29,10 +32,9 @@ const client = Instructor({
 
 export async function POST(req: Request) {
   try {
+    let response = {};
     const body = await req.json();
     const { books, genres } = SuggestSchema.parse(body);
-    console.log("API BOOKS -", books);
-    console.log("API GENRES", genres);
 
     const prompt = `
     You are a large language model trained on a massive dataset of books and user preferences. Given a list of liked books and preferred genres, You can recommend similar and potentially enjoyable titles.
@@ -59,7 +61,36 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(answer, { status: 200 });
+    response = answer;
+
+    const data = await fetch(
+      `https://openlibrary.org/search.json?title=${answer.title}&page=1&limit=10`
+    );
+
+    const result: Book = await data.json();
+
+    const searchResult: BookSearchResult[] = result.docs;
+
+    if (searchResult.length > 0) {
+      searchResult.sort((a, b) => {
+        const titleA = a.title.toLowerCase();
+        const titleB = b.title.toLowerCase();
+        const title = answer.title.toLowerCase();
+
+        const levenA = leven(title, titleA);
+        const levenB = leven(title, titleB);
+
+        return levenA - levenB;
+      });
+      if (searchResult[0].cover_i != undefined) {
+        response = {
+          ...answer,
+          image: `https://covers.openlibrary.org/b/id/${searchResult[0].cover_i}-M.jpg`,
+        };
+      }
+    }
+
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: error }, { status: 400 });
