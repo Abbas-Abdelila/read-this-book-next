@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project README
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a web application designed to help users discover new books based on their favorite books and genres. It leverages the OpenAI API to generate book suggestions and utilizes the Open Library API to fetch book details.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (v14.x or higher)
+- npm (v6.x or higher)
+- An OpenAI API key
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Clone the Repository**
 
-## Learn More
+   Clone this repository to your local machine using the following command:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/Abbas-Abdelila/read-this-book-next.git
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install Dependencies**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   Navigate to the project directory and install the required dependencies:
 
-## Deploy on Vercel
+   ```bash
+   cd read-this-book-next
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Variables**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   Create a `.env` file in the root of your project directory and add your OpenAI API key:
+
+   ```
+   OPEN_AI_KEY=your_openai_api_key_here
+   ```
+
+   Replace `your_openai_api_key_here` with your actual OpenAI API key.
+
+4. **Run the Application**
+
+   Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   The application will be available at `http://localhost:3000`.
+
+## Usage
+
+- **Adding Favorite Books**: Users can add their favorite books to the application. The application will then use this information to generate book suggestions.
+- **Selecting Genres**: Users can select their favorite genres. The application will use this information along with the favorite books to generate more personalized book suggestions.
+- **Viewing Suggestions**: Based on the user's preferences, the application will display a book suggestion with a brief explanation of why the user might enjoy it.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue if you find any bugs or have suggestions for improvements.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+---
+
+This README provides a basic structure for your project. You can expand it with more details about the project, such as additional setup steps, project structure, and any other relevant information.
