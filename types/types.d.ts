@@ -38,4 +38,5 @@ export interface Book {
 export interface BookSuggestion {
   title: string,
   description: string,
+  image: string,
 }
