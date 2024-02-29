@@ -9,6 +9,9 @@ interface BookImageProps {
 }
 
 const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
+  if (!url) {
+    url = "/book_placeholder.jpg";
+  }
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="relative w-[81px] h-[100px] sm:w-[102px] sm:h-[120px]  lg:w-[115px] lg:h-[160px] bg-[#FF6600] rounded-xl">
@@ -23,7 +26,7 @@ const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
           <MinusCircleIcon className="text-white bg-red-500 rounded-full" />
         </button>
       </div>
-      <p className="text-sm text-center font-thin text-gray-600 my-2 p-1 w-[160px] line-clamp-2">{title}</p>
+      <p className="text-xs md:text-sm text-center font-thin text-gray-600 my-2 p-1 md:w-[160px] line-clamp-2">{title}</p>
     </div>
   );
 };
