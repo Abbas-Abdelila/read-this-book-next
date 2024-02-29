@@ -40,15 +40,18 @@ export async function POST(req: Request) {
     You are a large language model trained on a massive dataset of books and user preferences. Given a list of liked books and preferred genres, You can recommend similar and potentially enjoyable titles.
 
     Liked Books: ${books.map((book) => book.title).join(", ")}
-    Genres: ${genres.join(", ")}
 
-    Strictly avoid recommending a book already listed in the Liked Books list. The title is not case sensitive. The user will not appreciate a book they have already read.
+    Liked Genres: ${genres.join(", ")}
+
+    Strictly avoid recommending a book already listed in the Liked Books list. Users deeply hate to see a book they have already read as suggestion from you.
     You are expert and don't make basic errors like that.
 
-    Based on the provided information, please recommend just ONE(1) book that the user might enjoy reading. Prioritize a book that share similar themes, styles, or authors with the liked books, while making a creative guess about the user based on their prefered genres.
+    Based on the provided information, please recommend just ONE(1) book that the user might enjoy reading. Prioritize a book that share similar themes, styles, or authors with the liked books, 
+    while making a creative guess about the user based on their prefered genres.
+
     Briefly explain why you think the user might enjoy each recommendation, mentioning relevant similarities or connections to their past reading preferences.
     
-    REPEAT: It is strictly forbidden to recommend a book already listed in the Liked Books list. The title is not case sensitive. The user will leave bad review and everyone's family will die of hunger.
+    REPEAT: It is strictly forbidden to recommend a book already listed in the Liked Books list. The user will leave bad review and I will lose my job, my wife and children. My life is in your hands. Please don't mess up.
     `;
 
     const answer = await client.chat.completions.create({
