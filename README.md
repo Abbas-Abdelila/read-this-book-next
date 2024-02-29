@@ -1,4 +1,4 @@
-# Project README
+# Find Your Next Book To Read
 
 ## Overview
 
@@ -64,5 +64,3 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ---
-
-This README provides a basic structure for your project. You can expand it with more details about the project, such as additional setup steps, project structure, and any other relevant information.
