@@ -120,8 +120,8 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
       books: selectedBooks,
       genres: data.items
     }).then((response) => {
-      const { title, description } = response.data;
-      onSuggestionData({ title, description }); 
+      const { title, description, image } = response.data;
+      onSuggestionData({ title, description, image }); 
   }).catch((error) => {
     console.error(error);
   });
@@ -174,7 +174,7 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
           )}
         />
         <div className="flex justify-end p-5">
-        <Button className="bg-blue-600 hover:bg-blue-500 transition-transform duration-150 ease-in" type="submit">Generate</Button>
+        <Button className="bg-blue-600 hover:bg-blue-500 transition-transform duration-150 ease-in" type="submit">Generate ✨</Button>
         </div>
       </form>
     </Form>
