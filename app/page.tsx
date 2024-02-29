@@ -83,7 +83,7 @@ export default function Home() {
 
         <div
           className={`grid grid-cols-4 gap-x-3 items-center mt-10 ${
-            selectedBooks.length > 0 && "p-6 bg-[#f3f3ee] rounded-md"
+            selectedBooks.length > 0 && "p-6 bg-[#f3f3ee] md:rounded-md"
           }`}
         >
           {selectedBooks.map((book, index) => (
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
 
         <div
-          className={`w-[80%] lg:max-w-2xl  mt-10 px-6 py-3 border border-gray-400 rounded-3xl ${
+          className={`w-[80%] lg:max-w-2xl  mt-10 px-6 py-3 border border-gray-400 rounded-3xl  ${
             searchResults.length > 0 && displaySearchResults
               ? "divide-y divide-gray-300"
               : ""
