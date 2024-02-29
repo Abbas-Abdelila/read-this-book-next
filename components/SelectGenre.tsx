@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -13,10 +13,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { BookSearchResult } from "@/types/types"
-import axios from "axios"
-
+} from "@/components/ui/form";
+import { BookSearchResult } from "@/types/types";
+import axios from "axios";
+import { useState } from "react";
+import { ButtonLoading } from "./ButtonLoading";
 
 const items = [
   {
@@ -52,12 +53,12 @@ const items = [
     label: "Horror",
   },
   {
-    id: "youngAdult",
-    label: "Young Adult",
+    id: "philosophy",
+    label: "Philosophy",
   },
   {
-    id: "children",
-    label: "Children",
+    id: "entrepreneurship",
+    label: "Entrepreneurship",
   },
   {
     id: "biography",
@@ -99,33 +100,47 @@ const items = [
     id: "travel",
     label: "Travel",
   },
-] as const
+] as const;
 
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
-})
+});
 
-export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBooks: BookSearchResult[], onSuggestionData: (data: any) => void}) {
+
+export function SelectGenre({
+  selectedBooks,
+  onSuggestionData,
+}: {
+  selectedBooks: BookSearchResult[];
+  onSuggestionData: (data: any) => void;
+}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       items: [],
     },
-  })
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    axios.post('/api/suggest', {
-      books: selectedBooks,
-      genres: data.items
-    }).then((response) => {
-      const { title, description, image } = response.data;
-      onSuggestionData({ title, description, image }); 
-  }).catch((error) => {
-    console.error(error);
-  });
-}
+    setIsLoading(true);
+    axios
+      .post("/api/suggest", {
+        books: selectedBooks,
+        genres: data.items,
+      })
+      .then((response) => {
+        const { title, description, image } = response.data;
+        onSuggestionData({ title, description, image });
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   return (
     <Form {...form}>
@@ -135,7 +150,6 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
           name="items"
           render={() => (
             <FormItem className="grid gap-y-[6px] gap-x-3  p-10 grid-cols-2 lg:grid-cols-3 max-w-[768px] mx-auto  items-center">
-             
               {items.map((item) => (
                 <FormField
                   key={item.id}
@@ -157,7 +171,7 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
                                     field.value?.filter(
                                       (value) => value !== item.id
                                     )
-                                  )
+                                  );
                             }}
                           />
                         </FormControl>
@@ -165,7 +179,7 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
                           {item.label}
                         </FormLabel>
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               ))}
@@ -174,9 +188,18 @@ export function SelectGenre( {selectedBooks, onSuggestionData } : { selectedBook
           )}
         />
         <div className="flex justify-end p-5">
-        <Button className="bg-blue-600 hover:bg-blue-500 transition-transform duration-150 ease-in" type="submit">Generate ✨</Button>
+          {isLoading ? (
+            <ButtonLoading />
+          ) : (
+            <Button
+              className="bg-blue-600 hover:bg-blue-500 transition-transform duration-150 ease-in"
+              type="submit"
+            >
+              Generate ✨
+            </Button>
+          )}
         </div>
       </form>
     </Form>
-  )
+  );
 }
