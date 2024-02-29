@@ -11,7 +11,7 @@ interface BookImageProps {
 const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="relative w-[81px] h-[100px] sm:w-[102px] sm:h-[120px]  lg:w-[115px] lg:h-[160px] ">
+      <div className="relative w-[81px] h-[100px] sm:w-[102px] sm:h-[120px]  lg:w-[115px] lg:h-[160px] bg-[#FF6600] rounded-xl">
         <Image
           src={url}
           fill
@@ -20,10 +20,10 @@ const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
           className="object-fit rounded-xl"
         />
         <button onClick={onRemove} className="absolute top-0 right-0">
-          <MinusCircleIcon />
+          <MinusCircleIcon className="text-white bg-red-500 rounded-full" />
         </button>
       </div>
-      <p className="text-sm font-thin text-gray-600 my-2 p-1">{title}</p>
+      <p className="text-sm text-center font-thin text-gray-600 my-2 p-1 w-[160px] line-clamp-2">{title}</p>
     </div>
   );
 };
