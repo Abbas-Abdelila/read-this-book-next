@@ -23,37 +23,41 @@ export default function Home() {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      if (query === "") {
-        setDisplaySearchResults(false);
-        return;
-      }
-
       try {
-        const { data }: { data: Book } = await axios.get(
-          `https://openlibrary.org/search.json?title=${query}&page=1&limit=10`
-        );
-        setSearchResults(data.docs);
-        console.log(searchResults);
+        if (query != "") {
+          const { data }: { data: Book } = await axios.get(
+            `https://openlibrary.org/search.json?title=${query}&page=1&limit=10`
+          );
+          setSearchResults(data.docs);
+          console.log(searchResults);
+        }
       } catch (error) {
         console.error(error);
       }
     };
     fetchBooks();
-  }, [query]);
+  }, [query, displaySearchResults]);
 
-  const handleBookSelection = (event: React.MouseEvent<HTMLLIElement>, book: BookSearchResult) => {
+  const handleBookSelection = (
+    event: React.MouseEvent<HTMLLIElement>,
+    book: BookSearchResult
+  ) => {
     event.preventDefault(); // Prevent the default action of the click event
     // Your logic to handle book selection
-    setSelectedBooks([...selectedBooks, book]);
-    console.log(selectedBooks)
+    if (
+      selectedBooks.some((selectedBook) => selectedBook.title === book.title) ==
+      false
+    ) {
+      setSelectedBooks([...selectedBooks, book]);
+    }
   };
   const handleBookRemoval = (index: number) => {
     setSelectedBooks(selectedBooks.filter((_, i) => i !== index));
   };
 
-  const handleSuggestionData = (data : BookSuggestion) => {
+  const handleSuggestionData = (data: BookSuggestion) => {
     setSuggestionData(data);
-  }
+  };
 
   return (
     <main className="w-[90%] mx-auto my-10 py-10 bg-white rounded-xl">
@@ -77,7 +81,11 @@ export default function Home() {
         </h3>
         <p className="text-gray-500">(add at least 3)</p>
 
-        <div className={`flex space-x-3 mt-10 ${selectedBooks.length > 0 && 'p-6 bg-[#f3f3ee] rounded-md'}`}>
+        <div
+          className={`grid grid-cols-4 gap-x-3 items-center mt-10 ${
+            selectedBooks.length > 0 && "p-6 bg-[#f3f3ee] rounded-md"
+          }`}
+        >
           {selectedBooks.map((book, index) => (
             <BookImage
               key={index}
@@ -87,7 +95,6 @@ export default function Home() {
             />
           ))}
         </div>
-
 
         <div
           className={`w-[80%] lg:max-w-2xl  mt-10 px-6 py-3 border border-gray-400 rounded-3xl ${
@@ -109,11 +116,14 @@ export default function Home() {
               className="focus:outline-none focus:shadow-none w-full font-extralight text-gray-500"
               onBlur={(e) => {
                 // Check if the related target is within the search results container
-                if (!e.relatedTarget || !e.relatedTarget.closest('.search-results-container')) {
+                if (
+                  !e.relatedTarget ||
+                  !e.relatedTarget.closest(".search-results-container")
+                ) {
                   // Delay hiding the search results by  200 milliseconds
                   setTimeout(() => {
                     setDisplaySearchResults(false);
-                  },  200);
+                  }, 200);
                 }
               }}
               onFocus={() => setDisplaySearchResults(true)}
@@ -133,9 +143,7 @@ export default function Home() {
                     className="text-md text-gray-500 px-1 py-2 flex justify-between hover:bg-slate-200 bg-opacity-50 rounded-md"
                   >
                     {result.title}
-                    <PlusIcon
-                      className="text-blue-600 cursor-pointer"
-                    />
+                    <PlusIcon className="text-blue-600 cursor-pointer" />
                   </li>
                 ))}
             </ul>
@@ -146,11 +154,14 @@ export default function Home() {
         </h3>
         <p className="text-gray-500">(Select at least 1)</p>
         <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:max-w-2xl border border-gray-400 rounded-2xl my-10">
-        <SelectGenre selectedBooks={selectedBooks} onSuggestionData={handleSuggestionData}/>
+          <SelectGenre
+            selectedBooks={selectedBooks}
+            onSuggestionData={handleSuggestionData}
+          />
         </div>
       </div>
 
-      {suggestionData && <Suggestion data={suggestionData}/>}
+      {suggestionData && <Suggestion data={suggestionData} />}
     </main>
   );
 }
