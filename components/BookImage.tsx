@@ -26,7 +26,7 @@ const BookImage: React.FC<BookImageProps> = ({ url, title, onRemove }) => {
           <MinusCircleIcon className="text-white bg-red-500 rounded-full" />
         </button>
       </div>
-      <p className="text-xs line-clamp-1 md:text-sm text-center font-thin text-gray-600 my-2 p-1 md:w-[160px] md:line-clamp-2">{title}</p>
+      <p className="text-xs md:text-sm text-center font-thin text-gray-600 my-2 p-1 md:w-[160px] line-clamp-4 md:line-clamp-3">{title}</p>
     </div>
   );
 };
