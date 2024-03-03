@@ -82,7 +82,7 @@ export default function Home() {
         <p className="text-gray-500 text-sm md:text-md">(add at least 3)</p>
 
         <div
-          className={`grid grid-cols-4 gap-x-3 items-center mt-10 ${
+          className={`grid grid-cols-4 gap-x-3 items-baseline mt-10 ${
             selectedBooks.length > 0 && "p-6 bg-[#f3f3ee] md:rounded-md"
           }`}
         >
