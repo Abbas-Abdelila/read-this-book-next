@@ -63,7 +63,7 @@ export default function Home() {
     <main className="w-[90%] mx-auto my-10 py-10 bg-white rounded-xl">
       <div className="left-side flex flex-col justify-center items-center">
         <div className="flex flex-col gap-3 items-center">
-          <h1 className="text-4xl font-semibold text-center text-gray-700">
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-semibold text-center text-gray-700">
             Find Your Next Book
           </h1>
           <Image
@@ -76,10 +76,10 @@ export default function Home() {
           />
         </div>
 
-        <h3 className="text-2xl font-semibold mt-10 text-gray-700">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mt-10 text-gray-700">
           1. Add your favorite books
         </h3>
-        <p className="text-gray-500">(add at least 3)</p>
+        <p className="text-gray-500 text-sm md:text-md">(add at least 3)</p>
 
         <div
           className={`grid grid-cols-4 gap-x-3 items-center mt-10 ${
@@ -149,10 +149,10 @@ export default function Home() {
             </ul>
           </div>
         </div>
-        <h3 className="text-2xl font-semibold mt-10 text-gray-700">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mt-10 text-gray-700">
           2. Select your favorite genres
         </h3>
-        <p className="text-gray-500">(Select at least 1)</p>
+        <p className="text-gray-500 text-sm md:text-md">(Select at least 1)</p>
         <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:max-w-2xl border border-gray-400 rounded-2xl my-10">
           <SelectGenre
             selectedBooks={selectedBooks}
