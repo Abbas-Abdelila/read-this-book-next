@@ -196,6 +196,7 @@ export function SelectGenre({
             <ButtonLoading />
           ) : (
             <Button
+              size="sm"
               className="bg-blue-600 hover:bg-blue-500 transition-transform duration-150 ease-in"
               type="submit"
             >
