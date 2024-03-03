@@ -45,8 +45,8 @@ const items = [
     label: "Fantasy",
   },
   {
-    id: "scienceFiction",
-    label: "Science Fiction",
+    id: "scifi",
+    label: "Sci-Fi",
   },
   {
     id: "horror",
@@ -83,6 +83,10 @@ const items = [
   {
     id: "business",
     label: "Business",
+  },
+  {
+    id: "startup",
+    label: "Startup",
   },
   {
     id: "science",
